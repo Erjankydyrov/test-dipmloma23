@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Category from "./pages/Category";
 import NotFound from "./pages/NotFound";
 
+import { categories } from './firebase';
+
 function App() {
   return (
     <div className="App">
