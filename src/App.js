@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound";
 import { createContext, useEffect, useState } from "react";
 import { getDocs } from "firebase/firestore/lite";
 import { categoryCollection, productsCollection } from "./firebase";
+import Product from "./pages/Product";
 
 // Создать контекст, который будет хранить данные.
 export const AppContext = createContext({
@@ -49,6 +50,7 @@ function App() {
             <Route path="/contacts" element={<h1>Contacts</h1>} />
             <Route path="/delivery" element={<h1>Delivery</h1>} />
             <Route path="/categories/:slug" element={<Category />} />
+            <Route path="/products/:slug" element={<Product />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
