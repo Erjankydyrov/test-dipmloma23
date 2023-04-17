@@ -7,7 +7,19 @@ export default function CartList() {
   // получить список товаров и корзинку
   const { products, cart, setCart } = useContext(AppContext);
 
-  // получить только ИД товаров в корзинке 
+  function onQuantityChange(product, qty) {
+    setCart({
+      ...cart,
+      [product.id]: qty,
+    });
+  }
+  function onItemRemove(product) {
+    const newCart = { ...cart };
+    delete newCart[product.id];
+    setCart(newCart);
+  }
+
+  // получить только ИД товаров в корзинке
   const productIds = Object.keys(cart);
 
   // чтобы вывести пройтись по товарам
@@ -19,15 +31,20 @@ export default function CartList() {
       <div className="CartItem" key={product.id}>
         <img src={product.picture} alt={product.name} />
         <Link to={"/product/" + product.slug}>{product.name}</Link>
-        <input type="number" value={cart[product.id]} min={1} />
+
+        <input
+          type="number"
+          value={cart[product.id]}
+          min={1}
+          onChange={(event) => onQuantityChange(product, +event.target.value)}
+        />
+
         <span>{cart[product.id] * product.price} som</span>
-        <button>Remove</button>
+        <button
+          onClick={() => onItemRemove(product)}
+        >Remove</button>
       </div>
     ));
 
-  return (
-    <div className="CartList">
-      {output}
-    </div>
-  );
+  return <div className="CartList">{output}</div>;
 }
