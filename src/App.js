@@ -5,9 +5,10 @@ import Category from "./pages/Category";
 import NotFound from "./pages/NotFound";
 import { createContext, useEffect, useState } from "react";
 import { getDocs } from "firebase/firestore/lite";
-import { categoryCollection, productsCollection } from "./firebase";
+import { categoryCollection, onAuthChange, productsCollection } from "./firebase";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
+import ThankYou from "./pages/ThankYou";
 
 // Создать контекст, который будет хранить данные.
 export const AppContext = createContext({
@@ -16,15 +17,19 @@ export const AppContext = createContext({
   // контекст для корзины
   cart: {}, // содержимое корзинки
   setCart: () => {}, // изменить содержимое корзики
+
+  user: null,
 });
 
 function App() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
-  
+
   const [cart, setCart] = useState(() => {
     return JSON.parse(localStorage.getItem('cart')) || {};
   });
+
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -50,11 +55,15 @@ function App() {
           }))
         )
       });
+
+    onAuthChange(user => {
+      setUser(user);
+    });
   }, []);
 
   return (
     <div className="App">
-      <AppContext.Provider value={{ categories, products, cart, setCart }}>
+      <AppContext.Provider value={{ categories, products, cart, setCart, user }}>
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -64,6 +73,7 @@ function App() {
             <Route path="/delivery" element={<h1>Delivery</h1>} />
             <Route path="/categories/:slug" element={<Category />} />
             <Route path="/products/:slug" element={<Product />} />
+            <Route path="/thank-you" element={<ThankYou />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
