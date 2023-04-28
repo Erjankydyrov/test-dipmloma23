@@ -8,6 +8,8 @@ import { getDocs } from "firebase/firestore";
 import {
   onAuthChange,
   onCategoriesLoad,
+  onOrdersLoad,
+  onProductsLoad,
   ordersCollection,
   productsCollection,
 } from "./firebase";
@@ -46,32 +48,8 @@ function App() {
 
   useEffect(() => {
     onCategoriesLoad(setCategories);
-
-    getDocs(productsCollection) // получить категории
-      .then(({ docs }) => {
-        // когда категории загрузились
-        setProducts(
-          // обновить состояние
-          docs.map((doc) => ({
-            // новый массив
-            ...doc.data(), // из свойств name, slug
-            id: doc.id, // и свойства id
-          }))
-        );
-      });
-
-    getDocs(ordersCollection) // получить категории
-      .then(({ docs }) => {
-        // когда категории загрузились
-        setOrders(
-          // обновить состояние
-          docs.map((doc) => ({
-            // новый массив
-            ...doc.data(), // из свойств name, slug
-            id: doc.id, // и свойства id
-          }))
-        );
-      });
+    onProductsLoad(setProducts);
+    onOrdersLoad(setOrders);
 
     onAuthChange((user) => {
       if (user) {
