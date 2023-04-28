@@ -18,7 +18,7 @@ const firebaseConfig = {
 // Инициализация приложения
 const app = initializeApp(firebaseConfig);
 // Инициализация базы данных
-const db = getFirestore(app);
+export const db = getFirestore(app);
 const auth = getAuth(app);
 
 // Получение списка категорий (коллекции документов)
