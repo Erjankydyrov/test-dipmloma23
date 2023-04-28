@@ -1,9 +1,15 @@
-import { addDoc } from "firebase/firestore/lite";
-import { useState } from "react";
+import { addDoc } from "firebase/firestore";
+import { useContext, useState } from "react";
 import { categoryCollection } from "../../firebase";
+import { AppContext } from "../../App";
 
 const AddCategory = () => {
+  const { user } = useContext(AppContext);
   const [category, setCategory] = useState("");
+
+  if (!user || !user.isAdmin) {
+    return null;
+  }
 
   function onChangeCategory(event) {
     setCategory(event.target.value);
@@ -16,6 +22,8 @@ const AddCategory = () => {
       alert(
         "Please provide a category name with minimum length of 5 characters."
       );
+      
+      return;
     }
 
     addDoc(categoryCollection, {
