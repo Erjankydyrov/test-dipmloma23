@@ -1,16 +1,22 @@
 .Layout {
   display: grid;
-  grid-template-areas: "header header"
-                       "aside main"
-                       "footer footer";
+  grid-template-areas:
+    "header header"
+    "aside main"
+    "footer footer";
   grid-template-columns: 1fr 3fr;
-  
+
   max-width: 789px;
   margin: 0 auto;
 }
 .Layout header {
   grid-area: header;
+  background-color: gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 .Layout aside {
   grid-area: aside;
 }
@@ -23,4 +29,10 @@
 
 .Layout .logo {
   max-width: 100px;
+}
+
+@media (max-width: 550px) {
+  .Layout header > .Nav {
+    display: none;
+  }
 }
