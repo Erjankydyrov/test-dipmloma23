@@ -8,17 +8,19 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCshDC5t94ck26dbLozrsphISXXKujRxVo",
-  authDomain: "diplom-b2b4b.firebaseapp.com",
-  projectId: "diplom-b2b4b",
-  storageBucket: "diplom-b2b4b.appspot.com",
-  messagingSenderId: "65197132264",
-  appId: "1:65197132264:web:94ebb98415dca05ea07c5d",
+  apiKey: "AIzaSyDuu0Y9sJIMkyMiIYZyptPlrj90kaWEyD4",
+  authDomain: "diploma23-fb1f1.firebaseapp.com",
+  projectId: "diploma23-fb1f1",
+  storageBucket: "diploma23-fb1f1.appspot.com",
+  messagingSenderId: "315186134637",
+  appId: "1:315186134637:web:03a9ccef74b8f9f2968964",
+  measurementId: "G-8F0BYQ15P0",
 };
 
 // Инициализация приложения
@@ -26,6 +28,7 @@ const app = initializeApp(firebaseConfig);
 // Инициализация базы данных
 export const db = getFirestore(app);
 const auth = getAuth(app);
+export const storage = getStorage(app);
 
 // Получение списка категорий (коллекции документов)
 export const categoryCollection = collection(db, "categories");
@@ -64,3 +67,12 @@ export const onOrdersLoad = (callback) =>
       }))
     )
   );
+
+// Upload a photo to Firebase Storage and get its URL
+export const uploadProductPhoto = async (file) => {
+  const storageRef = ref(storage, `products/${file.name}`);
+  await uploadBytes(storageRef, file);
+
+  const url = await getDownloadURL(storageRef);
+  return url;
+};
