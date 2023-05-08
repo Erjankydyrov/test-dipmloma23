@@ -51,7 +51,7 @@ function App() {
 
     onAuthChange((user) => {
       if (user) {
-        user.isAdmin = user.email === "bobbyitkg@gmail.com";
+        user.isAdmin = user.email === "erjankydyrov29@gmail.com";
       }
 
       setUser(user);
