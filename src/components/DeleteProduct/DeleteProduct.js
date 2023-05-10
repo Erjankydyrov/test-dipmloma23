@@ -23,7 +23,6 @@ export default function DeleteProduct({ product }) {
       })
       .catch((error) => {
         console.log("Failed to delete product image:", error);
-        alert("Failed to delete product image. Please try again.");
       });
   }
 
