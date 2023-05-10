@@ -68,7 +68,7 @@ export const onOrdersLoad = (callback) =>
     )
   );
 
-// Upload a photo to Firebase Storage and get its URL
+// отправка фотографии и получение ее url
 export const uploadProductPhoto = async (file) => {
   const storageRef = ref(storage, `products/${file.name}`);
   await uploadBytes(storageRef, file);

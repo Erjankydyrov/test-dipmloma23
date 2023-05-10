@@ -6,7 +6,7 @@ import { addDoc } from "firebase/firestore";
 export default function AddProduct({ category }) {
   const { user } = useContext(AppContext);
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [picture, setPicture] = useState(null);
 
   if (!user || !user.isAdmin) {
@@ -49,7 +49,6 @@ export default function AddProduct({ category }) {
       })
       .catch((error) => {
         console.log("Failed to add product:", error);
-        alert("Failed to add product. Please try again.");
       });
   }
 
