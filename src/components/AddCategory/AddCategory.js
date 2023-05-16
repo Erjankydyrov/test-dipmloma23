@@ -49,7 +49,7 @@ const AddCategory = () => {
          onChange={onChangeCategory}
        />
        <button onClick={onAddCategory} disabled={isSubmitting}>
-         {isSubmitting ? "Adding..." : "+"}
+         +
        </button>
      </div>
    );
