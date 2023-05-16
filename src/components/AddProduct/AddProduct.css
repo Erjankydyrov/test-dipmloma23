@@ -1,0 +1,11 @@
+.AddProduct {
+  width: 100%;
+}
+.AddProduct form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.btn_submit {
+  width: 100px;
+}
